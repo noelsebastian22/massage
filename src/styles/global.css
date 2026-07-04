@@ -1,0 +1,115 @@
+@import 'tailwindcss';
+
+@theme {
+  /* ── Palette (from design.webp) ─────────────────────────── */
+  --color-pine: oklch(0.34 0.055 155); /* header/footer/CTA green   */
+  --color-pine-deep: oklch(0.28 0.05 155); /* hover / darker green      */
+  --color-pine-mist: oklch(0.9 0.02 155); /* pale green tint on pine   */
+  --color-fog: oklch(0.945 0.007 120); /* page ground (light greige)*/
+  --color-panel: oklch(0.995 0.002 120); /* white section panels      */
+  --color-ink: oklch(0.24 0.03 155); /* primary text              */
+  --color-ink-soft: oklch(0.42 0.025 155); /* secondary text            */
+  --color-butter: oklch(0.92 0.084 98); /* yellow contact cards      */
+  --color-butter-line: oklch(0.84 0.09 98); /* borders on butter         */
+  --color-amber-glow: oklch(0.78 0.12 75); /* candlelight accent        */
+
+  /* ── Type ───────────────────────────────────────────────── */
+  --font-display: 'Lora Variable', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Figtree Variable', system-ui, -apple-system, sans-serif;
+
+  /* ── Motion ─────────────────────────────────────────────── */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Z scale ────────────────────────────────────────────── */
+  --z-sticky: 40;
+  --z-header: 50;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  @apply bg-fog font-sans text-ink antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--color-pine);
+  color: var(--color-pine-mist);
+}
+
+/* ── Reveal-on-scroll (enhances an already-visible default) ── */
+/* Hidden state only applies when JS has registered (html.js), */
+/* so no-JS and headless renders always show content.          */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s var(--ease-out-quint),
+    transform 0.9s var(--ease-out-quint);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+html.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .reveal {
+    transform: none;
+    transition: opacity 0.4s ease;
+  }
+}
+
+/* ── Shared pieces ────────────────────────────────────────── */
+.btn-pill {
+  @apply inline-flex items-center gap-2.5 rounded-full font-sans text-[0.8rem] font-semibold tracking-[0.08em] uppercase;
+  transition:
+    background-color 0.35s var(--ease-out-quint),
+    color 0.35s var(--ease-out-quint),
+    border-color 0.35s var(--ease-out-quint);
+}
+
+.arrow-circle {
+  @apply inline-grid size-6 place-items-center rounded-full;
+  transition: transform 0.35s var(--ease-out-quint);
+}
+
+.btn-pill:hover .arrow-circle {
+  transform: translateX(3px) rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-pill:hover .arrow-circle {
+    transform: none;
+  }
+}
+
+/* Horizontal scroller without visible scrollbar */
+.scroller {
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.scroller::-webkit-scrollbar {
+  display: none;
+}

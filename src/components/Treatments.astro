@@ -1,0 +1,225 @@
+---
+const treatments = [
+  {
+    id: 'remedial',
+    label: 'Remedial',
+    title: 'Remedial Massage',
+    body: 'Targeted, therapeutic treatment for acute and chronic conditions. Each session begins with a conversation, so the work meets you exactly where your body needs it.',
+    pricing: '60 min $125 · 75 min $145 · 90 min $160',
+    note: 'Private health fund rebates via HICAPS',
+    image: '/images/treatment-remedial.jpg',
+    alt: 'Therapist applying focused pressure along a client’s back',
+  },
+  {
+    id: 'swedish',
+    label: 'Swedish',
+    title: 'Swedish Relaxation',
+    body: 'Long, flowing strokes that quiet the nervous system and melt everyday tension. The classic reset for a body that has been carrying too much.',
+    pricing: '60 min $125 · 75 min $145 · 90 min $160',
+    note: 'Private health fund rebates via HICAPS',
+    image: '/images/treatment-swedish.jpg',
+    alt: 'Relaxation massage with slow, flowing strokes across the shoulders',
+  },
+  {
+    id: 'sports',
+    label: 'Sports',
+    title: 'Sports Massage',
+    body: 'Deeper, deliberate work for training bodies — supporting recovery, easing overuse, and keeping you moving through the mountains you love.',
+    pricing: '60 min $125 · 75 min $145 · 90 min $160',
+    note: 'Private health fund rebates via HICAPS',
+    image: '/images/treatment-sports.jpg',
+    alt: 'Deep tissue sports massage on a client’s upper back',
+  },
+  {
+    id: 'lymphatic',
+    label: 'Lymphatic',
+    title: 'Lymphatic Treatment',
+    body: 'Gentle, rhythmic strokes that encourage natural drainage and lightness — a soft, restorative session for when your body asks for less, not more.',
+    pricing: '60 min $125 · 75 min $145 · 90 min $160',
+    note: 'Private health fund rebates via HICAPS',
+    image: '/images/treatment-lymphatic.jpg',
+    alt: 'Gentle lymphatic massage strokes on a client’s arm',
+  },
+  {
+    id: 'hot-stone',
+    label: 'Hot Stone',
+    title: 'Hot Stone Massage',
+    body: 'Heated volcanic stones melt tension away while grounding the body and calming the senses. A sensory journey into warmth and release.',
+    pricing: '90 min $175',
+    note: 'Please mention when booking — the stones need an hour to warm',
+    image: '/images/treatment-hotstone.jpg',
+    alt: 'Warm volcanic stones resting along a client’s spine',
+  },
+  {
+    id: 'facial',
+    label: 'Facials',
+    title: 'Facial Treatments',
+    body: 'Restorative facials with Dermatonics skin care, tailored to your skin in a free 15-minute consultation before your first treatment.',
+    pricing: '60 min $135 · 75 min $155 · 90 min $170',
+    note: 'Includes a free 15-minute consultation',
+    image: '/images/treatment-facial.jpg',
+    alt: 'Client receiving a calming facial treatment by candlelight',
+  },
+];
+---
+
+<section id="treatments" class="px-3 sm:px-4">
+  <div class="reveal mx-auto max-w-7xl rounded-3xl bg-panel px-5 py-14 sm:px-10 sm:py-16">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+      <div class="max-w-xs shrink-0">
+        <h2 class="font-display text-3xl italic sm:text-4xl">Our Treatment</h2>
+        <p class="mt-5 text-[0.95rem] leading-relaxed text-ink-soft">
+          Every treatment begins with listening. At Cloud 3 you'll find relaxing, deep tissue,
+          draining, and rejuvenating treatments — qualified, registered, and client-focused.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-2.5 lg:max-w-xl lg:justify-end" role="tablist" aria-label="Treatments">
+        {
+          treatments.map((t, i) => (
+            <button
+              type="button"
+              role="tab"
+              id={`tab-${t.id}`}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              aria-controls={`panel-${t.id}`}
+              data-index={i}
+              class="treatment-tab btn-pill border border-ink/20 px-4 py-2 text-ink-soft normal-case tracking-normal aria-selected:border-pine aria-selected:bg-pine aria-selected:text-pine-mist hover:border-pine"
+            >
+              {t.label}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="relative mt-10 grid gap-8 md:grid-cols-[1.5fr_1fr] md:gap-12">
+      <div class="relative overflow-hidden rounded-2xl">
+        {
+          treatments.map((t, i) => (
+            <img
+              src={t.image}
+              alt={t.alt}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              data-index={i}
+              class:list={[
+                'treatment-img aspect-[4/3] w-full rounded-2xl object-cover',
+                i === 0 ? 'relative opacity-100' : 'absolute inset-0 opacity-0',
+              ]}
+            />
+          ))
+        }
+        <div class="absolute bottom-4 left-4 flex gap-2">
+          <button
+            type="button"
+            data-treatment-prev
+            aria-label="Previous treatment"
+            class="grid size-10 place-items-center rounded-full border border-white/50 text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white/20"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            data-treatment-next
+            aria-label="Next treatment"
+            class="grid size-10 place-items-center rounded-full bg-pine text-pine-mist transition-colors duration-300 hover:bg-pine-deep"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="relative flex flex-col justify-center">
+        {
+          treatments.map((t, i) => (
+            <div
+              role="tabpanel"
+              id={`panel-${t.id}`}
+              aria-labelledby={`tab-${t.id}`}
+              data-index={i}
+              class:list={['treatment-panel', i === 0 ? 'relative opacity-100' : 'pointer-events-none absolute inset-0 opacity-0']}
+            >
+              <h3 class="font-display text-[clamp(1.9rem,3vw,2.6rem)] leading-[1.12] italic">{t.title}</h3>
+              <p class="mt-5 max-w-[44ch] text-[0.95rem] leading-relaxed text-ink-soft">{t.body}</p>
+              <p class="mt-5 font-medium text-ink">{t.pricing}</p>
+              <p class="mt-1.5 text-sm text-ink-soft">{t.note}</p>
+              <a
+                href="#contact"
+                class="btn-pill mt-7 border border-ink/25 px-5 py-2.5 text-ink hover:border-pine hover:bg-pine hover:text-pine-mist"
+              >
+                Book now
+                <span class="arrow-circle bg-pine text-pine-mist" aria-hidden="true">
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 10L10 2M10 2H4M10 2v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <p class="mt-10 text-center text-sm text-ink-soft">
+      Gift certificates available for all treatments · HICAPS rebates exclude facials and hot stone
+    </p>
+  </div>
+</section>
+
+<style>
+  .treatment-img,
+  .treatment-panel {
+    transition: opacity 0.6s var(--ease-out-quint);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .treatment-img,
+    .treatment-panel {
+      transition-duration: 0.2s;
+    }
+  }
+</style>
+
+<script>
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('.treatment-tab')];
+  const imgs = [...document.querySelectorAll<HTMLImageElement>('.treatment-img')];
+  const panels = [...document.querySelectorAll<HTMLElement>('.treatment-panel')];
+  const prev = document.querySelector<HTMLButtonElement>('[data-treatment-prev]');
+  const next = document.querySelector<HTMLButtonElement>('[data-treatment-next]');
+  let active = 0;
+
+  function show(index: number) {
+    active = (index + tabs.length) % tabs.length;
+    tabs.forEach((tab, i) => tab.setAttribute('aria-selected', i === active ? 'true' : 'false'));
+    imgs.forEach((img, i) => {
+      const on = i === active;
+      img.classList.toggle('opacity-100', on);
+      img.classList.toggle('opacity-0', !on);
+      img.classList.toggle('relative', on);
+      img.classList.toggle('absolute', !on);
+      img.classList.toggle('inset-0', !on);
+    });
+    panels.forEach((panel, i) => {
+      const on = i === active;
+      panel.classList.toggle('opacity-100', on);
+      panel.classList.toggle('opacity-0', !on);
+      panel.classList.toggle('relative', on);
+      panel.classList.toggle('absolute', !on);
+      panel.classList.toggle('inset-0', !on);
+      panel.classList.toggle('pointer-events-none', !on);
+    });
+  }
+
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => show(i));
+    tab.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') show(active + 1), tabs[active]?.focus();
+      if (e.key === 'ArrowLeft') show(active - 1), tabs[active]?.focus();
+    });
+  });
+  prev?.addEventListener('click', () => show(active - 1));
+  next?.addEventListener('click', () => show(active + 1));
+</script>

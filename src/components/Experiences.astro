@@ -1,0 +1,80 @@
+---
+const shots = [
+  { src: '/images/exp-1.jpg', alt: 'Massage oils and folded towels beside a treatment table' },
+  { src: '/images/exp-2.jpg', alt: 'Hot stones placed carefully along a client’s back' },
+  { src: '/images/exp-3.jpg', alt: 'Therapist’s hands working across a client’s shoulders' },
+  { src: '/images/exp-4.jpg', alt: 'Rolled towels, oils, and soft light in the treatment room' },
+  { src: '/images/exp-5.jpg', alt: 'Candlelit massage in a calm, dim treatment room' },
+  { src: '/images/exp-6.jpg', alt: 'Warm clinic corner with plants and natural textures' },
+];
+---
+
+<section id="experiences" class="py-20 sm:py-28">
+  <div class="reveal mx-auto flex max-w-7xl items-end justify-between px-5 sm:px-8">
+    <h2 class="font-display text-3xl italic sm:text-4xl">Experiences</h2>
+    <div class="flex gap-2">
+      <button
+        type="button"
+        data-exp-prev
+        aria-label="Scroll gallery backwards"
+        class="grid size-10 place-items-center rounded-full border border-ink/25 text-ink transition-colors duration-300 hover:border-pine hover:text-pine"
+      >
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        data-exp-next
+        aria-label="Scroll gallery forwards"
+        class="grid size-10 place-items-center rounded-full bg-pine text-pine-mist transition-colors duration-300 hover:bg-pine-deep"
+      >
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div
+    data-exp-track
+    class="scroller reveal mt-9 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 sm:px-8"
+    style="--reveal-delay: 0.1s"
+    tabindex="0"
+    role="group"
+    aria-label="Gallery of the clinic and treatments"
+  >
+    {
+      shots.map(({ src, alt }) => (
+        <figure class="exp-card w-[68vw] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[38vw] lg:w-[24vw]">
+          <img src={src} alt={alt} loading="lazy" class="aspect-[3/4] w-full object-cover" />
+        </figure>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .exp-card img {
+    transition: transform 0.8s var(--ease-out-quint);
+  }
+  .exp-card:hover img {
+    transform: scale(1.045);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .exp-card:hover img {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const track = document.querySelector<HTMLElement>('[data-exp-track]');
+  const step = () => (track ? Math.round(track.clientWidth * 0.6) : 0);
+  document
+    .querySelector('[data-exp-prev]')
+    ?.addEventListener('click', () => track?.scrollBy({ left: -step(), behavior: 'smooth' }));
+  document
+    .querySelector('[data-exp-next]')
+    ?.addEventListener('click', () => track?.scrollBy({ left: step(), behavior: 'smooth' }));
+</script>

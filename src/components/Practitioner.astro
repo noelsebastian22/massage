@@ -1,0 +1,67 @@
+---
+const credentials = [
+  { title: 'Diploma of Remedial Massage', detail: 'Qualified & registered remedial therapist' },
+  { title: 'Cert IV Massage Therapy Practice', detail: 'Practising full time since 2015' },
+  { title: 'Association of Massage Therapists', detail: 'Professional AMT member' },
+  { title: 'HICAPS on site', detail: 'Claim private health rebates on the spot' },
+];
+
+const clinic = [
+  'Quiet garden setting, well ventilated',
+  'Electric lift table with extra padding',
+  '5-stage HEPA air purification',
+  'Powered by renewable energy',
+];
+---
+
+<section id="therapist" class="bg-pine py-20 text-pine-mist sm:py-28">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="grid items-center gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
+      <figure class="reveal relative overflow-hidden rounded-3xl">
+        <img
+          src="/images/gerhard.jpg"
+          alt="Portrait of a massage therapist in a warm, softly lit clinic"
+          loading="lazy"
+          class="aspect-[4/5] w-full object-cover"
+        />
+        <figcaption
+          class="absolute right-4 bottom-4 left-4 rounded-2xl bg-ink/55 px-5 py-4 backdrop-blur-md"
+        >
+          <p class="font-display text-xl text-white italic">Gerhard Hassler</p>
+          <p class="mt-0.5 text-sm text-white/85">Remedial Massage Therapist &middot; Cloud 3</p>
+        </figcaption>
+      </figure>
+
+      <div>
+        <h2 class="reveal font-display text-3xl italic sm:text-4xl">Hands that listen</h2>
+        <p class="reveal mt-5 max-w-[58ch] leading-relaxed text-pine-mist/85" style="--reveal-delay: 0.08s">
+          Every treatment at Cloud 3 is with Gerhard — qualified, registered, and practising full
+          time since 2015. His work combines experience, intuition, and presence: client-focused
+          therapeutic massage that addresses acute and chronic conditions with a holistic approach.
+        </p>
+
+        <dl class="reveal mt-10 grid gap-x-8 gap-y-6 sm:grid-cols-2" style="--reveal-delay: 0.16s">
+          {
+            credentials.map(({ title, detail }) => (
+              <div class="border-t border-pine-mist/25 pt-4">
+                <dt class="font-medium text-white">{title}</dt>
+                <dd class="mt-1 text-sm text-pine-mist/75">{detail}</dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        <p class="reveal mt-10 text-sm tracking-[0.14em] text-pine-mist/70 uppercase" style="--reveal-delay: 0.2s">
+          The clinic
+        </p>
+        <ul class="reveal mt-3 flex flex-wrap gap-2.5" style="--reveal-delay: 0.24s">
+          {
+            clinic.map((item) => (
+              <li class="rounded-full border border-pine-mist/30 px-4 py-1.5 text-sm text-pine-mist/90">{item}</li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

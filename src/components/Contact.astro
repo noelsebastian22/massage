@@ -1,0 +1,132 @@
+---
+const hours = [
+  { day: 'Monday', time: '9:00 AM – 6:00 PM' },
+  { day: 'Tuesday', time: '9:00 AM – 6:00 PM' },
+  { day: 'Wednesday', time: 'Closed' },
+  { day: 'Thursday', time: '9:00 AM – 6:00 PM' },
+  { day: 'Friday', time: '9:00 AM – 6:00 PM' },
+  { day: 'Saturday', time: '9:00 AM – 6:00 PM' },
+  { day: 'Sunday', time: 'Closed' },
+];
+---
+
+<section id="contact" class="px-3 pb-3 sm:px-4 sm:pb-4">
+  <div class="relative overflow-hidden rounded-3xl">
+    <img
+      src="/images/contact-bg.jpg"
+      alt=""
+      loading="lazy"
+      class="absolute inset-0 h-full w-full object-cover"
+      aria-hidden="true"
+    />
+    <div class="absolute inset-0 bg-ink/70" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+      <h2 class="reveal text-center font-display text-[clamp(2rem,4.5vw,3.2rem)] text-white italic">
+        Write to us, call us, or stop by.
+      </h2>
+      <p class="reveal mx-auto mt-4 max-w-md text-center text-sm leading-relaxed text-white/80" style="--reveal-delay: 0.08s">
+        Appointment only — 16 Lawrence Street, Blackheath. The moment you step inside, you'll feel
+        transported.
+      </p>
+
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        <div class="reveal rounded-2xl bg-butter p-6" style="--reveal-delay: 0.1s">
+          <h3 class="font-display text-xl text-ink italic">Opening Hours</h3>
+          <dl class="mt-5 space-y-2">
+            {
+              hours.map(({ day, time }) => (
+                <div class="flex items-baseline justify-between gap-3 border-b border-butter-line pb-2 text-sm">
+                  <dt class="text-ink">{day}</dt>
+                  <dd class:list={['tabular-nums', time === 'Closed' ? 'text-ink-soft' : 'text-ink']}>{time}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <p class="mt-4 text-xs leading-relaxed text-ink-soft">Closed public holidays.</p>
+        </div>
+
+        <div class="reveal rounded-2xl bg-panel p-6" style="--reveal-delay: 0.18s">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true" class="text-pine">
+            <ellipse cx="15" cy="9" rx="5" ry="3.4" stroke="currentColor" stroke-width="1.6" />
+            <ellipse cx="15" cy="15.5" rx="7.5" ry="3.6" stroke="currentColor" stroke-width="1.6" />
+            <ellipse cx="15" cy="22.5" rx="10" ry="3.8" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+          <h3 class="mt-4 font-display text-xl text-ink italic">Drop us a note</h3>
+          <form method="post" action="#" class="mt-5 space-y-3" data-enquiry-form>
+            <label class="block">
+              <span class="sr-only">Your name</span>
+              <input
+                type="text"
+                name="name"
+                required
+                placeholder="Your name"
+                class="w-full rounded-xl border border-ink/20 bg-transparent px-4 py-2.5 text-sm text-ink placeholder:text-ink-soft focus:border-pine focus:outline-none"
+              />
+            </label>
+            <label class="block">
+              <span class="sr-only">Message</span>
+              <textarea
+                name="message"
+                required
+                rows="4"
+                placeholder="How can we help?"
+                class="w-full resize-none rounded-xl border border-ink/20 bg-transparent px-4 py-2.5 text-sm text-ink placeholder:text-ink-soft focus:border-pine focus:outline-none"
+              ></textarea>
+            </label>
+            <button
+              type="submit"
+              class="btn-pill w-full justify-center bg-pine px-5 py-3 text-pine-mist hover:bg-pine-deep"
+            >
+              Send message
+            </button>
+            <p class="text-xs leading-relaxed text-ink-soft">
+              Opens your email app, addressed to the clinic.
+            </p>
+          </form>
+        </div>
+
+        <div class="reveal rounded-2xl bg-butter p-6" style="--reveal-delay: 0.26s">
+          <h3 class="font-display text-xl text-ink italic">Cloud 3 is waiting for you</h3>
+          <address class="mt-5 space-y-4 text-sm not-italic">
+            <p class="text-ink">
+              16 Lawrence Street<br />Blackheath NSW 2785
+            </p>
+            <p>
+              <a href="tel:+61421582509" class="font-medium text-ink underline decoration-ink/30 underline-offset-4 hover:decoration-ink">
+                0421 582 509
+              </a>
+              <span class="block text-xs text-ink-soft">Text or call preferred — appointment only</span>
+            </p>
+            <p>
+              <a
+                href="mailto:cloud3massage@hotmail.com"
+                class="font-medium text-ink underline decoration-ink/30 underline-offset-4 hover:decoration-ink"
+              >
+                cloud3massage@hotmail.com
+              </a>
+            </p>
+            <p class="border-t border-butter-line pt-4 text-xs leading-relaxed text-ink-soft">
+              Free parking on Shillington Street — follow the gravel path with the purple handrail
+              to the veranda with the purple door.
+            </p>
+          </address>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Static site: compose the enquiry as an email in the visitor's mail client
+  const form = document.querySelector<HTMLFormElement>('[data-enquiry-form]');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = String(data.get('name') ?? '');
+    const message = String(data.get('message') ?? '');
+    const subject = encodeURIComponent(`Booking enquiry from ${name}`);
+    const body = encodeURIComponent(`${message}\n\n— ${name}`);
+    window.location.href = `mailto:cloud3massage@hotmail.com?subject=${subject}&body=${body}`;
+  });
+</script>
